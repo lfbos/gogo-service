@@ -76,11 +76,11 @@ func (r *mongoMatchRepository) updateMatch(id string, match gogo.Match) (err err
 func (r *mongoMatchRepository) getMongoMatch(id string) (mongoMatch matchRecord, err error) {
 	var matches []matchRecord
 	query := bson.M{"match_id": id}
-	params := &params.RequestParams{
+	p := &params.RequestParams{
 		Q: query,
 	}
 
-	count, err := r.Collection.Find(params, &matches)
+	count, err := r.Collection.Find(p, &matches)
 	if count == 0 {
 		err = errors.New("Match not found")
 	}
